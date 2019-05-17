@@ -52,6 +52,7 @@ Cronograma:
 | Escrever READ.me |  |  |  |  |  |  |  | * |
 
 Tempo aplicado 
+
 | Dia | > 2hs | 2hs - 3hs | 3hs-4hs | < 4hs |
 | - | - | - | - | - |
 |10/05|  |  |  | * |
