@@ -1,0 +1,89 @@
+@api = http://127.0.0.1:5000/ 
+@key = chave
+
+@extime = 3
+
+### Consulta chave
+GET {{api}}{{key}} HTTP/1.1
+
+
+### Adiciona novo valor na chave informada
+POST {{api}}{{key}} HTTP/1.1
+content-type: application/json
+
+{
+    "value": 1
+}
+
+### Adiciona novo valor na chave informada com exit time
+POST {{api}}{{key}}/{{extime}} HTTP/1.1
+content-type: application/json
+
+{
+    "value": 1
+}
+
+
+### Modifica o valor na chave informada
+PUT {{api}}{{key}} HTTP/1.1
+content-type: application/json
+
+{
+    "value": 1
+}
+
+### Modifica o valor na chave informada com exit time
+PUT {{api}}{{key}}/{{extime}} HTTP/1.1
+content-type: application/json
+
+{
+    "value": 1
+}
+
+
+### Remove as chaves informadas
+DELETE {{api}} HTTP/1.1
+content-type: application/json
+
+{
+    "value": ["valor1", "valor2", "valor3", "valor4", "valor5"]
+}
+
+
+### Informa o tamanho da base de dados
+GET {{api}}size HTTP/1.1
+
+### Incrementa em uma unidade a chave informada
+PUT {{api}}incr/{{key}} HTTP/1.1
+
+### Adiciona valores na chave informada
+POST {{api}}zadd/{{key}} HTTP/1.1
+content-type: application/json
+
+{
+   "value":{
+        "valor1":1,
+        "valor2":2,
+        "valor3":3,
+        "valor4":4,
+        "valor5":5,
+        "valor6":6,
+        "valor7":7,
+        "valor8":8,
+        "valor9":9
+   }
+}
+
+### Indica quantos valores existem na chave informada
+GET {{api}}zcard/{{key}} HTTP/1.1
+
+### Indica o rank de uma membro na chave informada
+GET {{api}}zrank/{{key}} HTTP/1.1
+content-type: application/json
+
+{
+    "value": "valor6"
+}
+
+### Retorna uma seção dos itens na chave informada
+GET {{api}}zrange/{{key}}/start/3/end/-3 HTTP/1.1
