@@ -47,7 +47,8 @@ class TestMyRedis(unittest.TestCase):
 
     def test_delete(self):
         self.redis.set_value('test 0', 12)
-        try_ = self.redis.delete_value('test 0')
+        try_ = self.redis.delete_value(['test 0'])
+        print(try_)
         self.assertEqual(try_, 1)
 
     @unittest.expectedFailure
@@ -59,7 +60,7 @@ class TestMyRedis(unittest.TestCase):
     def test_delete_many(self):
         for i in range(10):
             self.redis.set_value('test '+str(i), i+10)
-        try_ = self.redis.delete_value('test 0', 'test 4', 'test 8')
+        try_ = self.redis.delete_value(['test 0', 'test 4', 'test 8'])
         self.assertEqual(try_, 3)
 
     def test_dbsize(self):
@@ -75,37 +76,27 @@ class TestMyRedis(unittest.TestCase):
         self.assertEqual(try_, was + 1)
 
     def test_zadd(self):
-        self.redis.zadd('test 0', 'value 1', 1, 'value 2', 2, 'value 3', 3, 'value 4', 4)
-        try_ = self.redis.zadd('test 0', 'value 1', 2, 'value 2', 3, 'value 3', 4, 'value 4', 5, 'value 5', 5)
+        self.redis.zadd('test 0', {"value 1": 1, "value 2": 2, "value 3": 3, "value 4": 4})
+        try_ = self.redis.zadd('test 0', {"value 1": 2, "value 2": 3, "value 3": 4, "value 4": 5, "value 5": 5})
         self.assertEqual(try_, 1)
 
-    def test_zcard_1(self):
-        self.redis.set_value('test 0', 12)
-        try_ = self.redis.zcard('test 0')
-        self.assertEqual(try_, 1)
-
-    def test_zcard_2(self):
-        self.redis.zadd('test 0', 'value 1', 1, 'value 2', 2, 'value 3', 3, 'value 4', 4)
-        try_ = self.redis.zcard('test 0')
+    def test_zcard(self):
+        self.redis.zadd('test 100', {"value 1": 1, "value 2": 2, "value 3": 3, "value 4": 4})
+        try_ = self.redis.zcard('test 100')
         self.assertEqual(try_, 4)
 
-    def test_zcard_3(self):
-        self.redis.zadd('test 0', 'value 1', 1, 'value 2', 2, 'value 3', 3, 'value 4', 4)
-        try_ = self.redis.zcard('test 0', 'value 1', 1, 'value 2', 2)
-        self.assertEqual(try_, 2)
-
     def test_zrank_1(self):
-        self.redis.zadd('test 0', 'value 1', 1, 'value 2', 2, 'value 3', 3, 'value 4', 4)
+        self.redis.zadd('test 0', {"value 1": 1, "value 2": 2, "value 3": 3, "value 4": 4})
         try_ = self.redis.zrank('test 0', 'value 3')
         self.assertEqual(try_, 2)
 
     def test_zrank_2(self):
-        self.redis.zadd('test 0', 'value 1', 1, 'value 2', 2, 'value 3', 3, 'value 4', 4)
+        self.redis.zadd('test 0', {"value 1": 1, "value 2": 2, "value 3": 3, "value 4": 4})
         try_ = self.redis.zrank('test 0', 'value 10')
         self.assertEqual(try_, self.responses.NIL_)
 
     def test_zrange(self):
-        self.redis.zadd('test 0', 'value 1', 1, 'value 2', 2, 'value 3', 3, 'value 4', 4, 'value 5', 5, 'value 6', 6, 'value 7', 7, 'value 8', 8)
+        self.redis.zadd('test 0', {"value 1": 1, "value 2": 2, "value 3": 3, "value 4": 4, "value 5": 5, "value 6": 6, "value 7": 7, "value 8": 8})
         try_ = self.redis.zrange('test 0', 2, 5)
         self.assertEqual(len(try_), 3)
 

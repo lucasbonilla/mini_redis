@@ -47,7 +47,7 @@ class MyRedis():
             return ReturnValue.ERROR_NUMBER_OF_ARGUMENTS
         deleted = 0
         for key in keys:
-            if self.get_value(key) != 'nil':
+            if self.get_value(key) != ReturnValue.NIL_:
                 self.storage.pop(key)
                 deleted += 1
         return deleted
@@ -132,11 +132,11 @@ class MyRedis():
 
     def zrange(self, key, start, stop):
         """
-        docstring here
+        Retorna uma seção da chave informada
             :param self: 
-            :param key: 
-            :param start: 
-            :param stop: 
+            :param key: chave
+            :param start: inicio
+            :param stop: fim
         """
         index = self.storage.get(key)
         if not index:
@@ -151,51 +151,3 @@ class MyRedis():
             stop += len(index)
 
         return list_of_items[start:stop]
-
-
-if __name__ == "__main__":
-    redis = MyRedis()
-    # print(redis.zadd('bulbasaur', 'pokedex_number', '001'))
-    # print(redis.zadd('pokemon_type', 1, 'grass', 2, 'poison'))
-    # print(redis.set('zero', 0, 2))
-    # print(redis.set('um', 1, 2))
-    # print(redis.set('dois', 2, 2))
-    # print(redis.set('tres', 3, 2))
-    # print(redis.set('quatro', 4, 2))
-    # print(redis.set('cinco', 5, 2))
-    # print(redis.set('seis', 6, 2))
-    # print(redis.set('sete', 7, 2))
-    # print(redis.set('oito', 8, 2))
-    # print(redis.set('nove', 9, 2))
-    # print(redis.incr('nove'))
-    # print(redis.set('pokemon_name', 'Bulbasaur'))
-    # print(redis.zadd('pokemon_type', 1, 'grass', 2, 'poison'))
-    # print(redis.zadd('pokemon_base_stats', 'hp', 45, 'attack',	49, 'defense', 49, 'speed',	45))
-    # print(redis.set('idade', 32))
-    # print(redis.set('mais um teste', 30))
-    # print(redis.dbSize())
-    # print(redis.storage)
-    # print(redis.delete('tres', 'cinco', 'nove'))
-    # print(redis.storage)
-    # print(redis.timer)
-    # redis.incr('idade')
-    # print(redis.get('tres'))
-    # # print(redis.zadd('superpowers', 'fly', 111, 'super jump', 110, 'eita', 100))
-    # print(redis.zadd('superpowers', 'zero', 0, 'um', 1, 'dois', 2, 'tres', 3, 'quatro', 4, 'cinco', 5, 'seis', 6, 'sete', 7, 'oito', 8, 'nove', 9))
-    print(
-        redis.zadd(
-            'superpowers', 'zero', 1, 'um', 2, 'dois', 3, 'tres', 3, 'quatro',
-            4, 'cinco', 5, 'seis', 6, 'sete', 7, 'oito', 8, 'nove', 9, 'dez',
-            10))
-    print(redis.set_value('teste', 1))
-
-    # print("Len of superpowers is %s" % redis.zcard('superpowers'))
-    print("match %s" % redis.zcard('superpowers'))
-
-    # print(redis.zrank('superpowers', 'dois'))
-
-    # print(redis.zrange('superpowers', 2, 6))
-
-    # print(redis.dbSize())
-    # # redis.delete('mais um teste')
-    # print(redis.storage)
