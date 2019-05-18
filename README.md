@@ -62,7 +62,7 @@ Para rodar os endpoint via CURL:
 > # Retorna o rank do elemento em uma chave:
 > curl -X get http://127.0.0.1:5000/zrank/<chave></chave> -H "accept: application/json" -H "Content-type: application/json" -d '{"value":"<elemento>"}'
 > # Retorna a seção de uma chave:
-> curl -X get http://127.0.0.1:5000/zrange/valor_1/start/1/end/2
+> curl -X get http://127.0.0.1:5000/zrange/valor_1/start/<inicio>/end/<fim>
 ```
 
 Se houver instalada na sua IDE um simulador de requisições REST pode ser testado também através do arquivo tests/.rest
