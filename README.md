@@ -36,6 +36,35 @@ Para testar o sistema pode ser rodado o arquivo de testes unitários com o coman
 > python -m unittest discover -v
 ```
 
+Para rodar os endpoint via CURL:
+
+```sh
+> # inserir uma chave:
+> curl -X POST http://127.0.0.1:5000/<chave> -H "accept: application/json" -H "Content-type: application/json" -d '{"value": <valor>}'
+> # Modificar uma chave:
+> curl -X PUT http://127.0.0.1:5000/<chave></chave> -H "accept: application/json" -H "Content-type: application/json" -d '{"value": <valor>}'
+> # Buscar uma chave:
+> curl -X GET http://127.0.0.1:5000/<chave> -H "accept: application/json" -H "Content-type: application/json"
+> # Inserir uma chave com exit time:
+> curl -X POST http://127.0.0.1:5000/<chave>/<tempo> -H "accept: application/json" -H "Content-type: application/json" -d '{"value": <valor>}'
+> # Modificar uma chave com exit time:
+> curl -X PUT http://127.0.0.1:5000/<chave>/<tempo> -H "accept: application/json" -H "Content-type: application/json" -d '{"value": <valor>}'
+> # Deletar uma chave:
+> curl -X DELETE http://127.0.0.1:5000/valor1
+> # Tamanho do storage:
+> curl -X GET http://127.0.0.1:5000/size
+> # Incrementar em uma unidade uma chave:
+> curl -X PUT http://127.0.0.1:5000/incr/<chave>
+> # Adicionar vários valores em uma chave:
+> curl -X POST http://127.0.0.1:5000/zadd/<chave> -H "accept: application/json" -H "Content-type: application/json" -d '{"value":{"<chave1>":<valor1>, "<chave2>":<valor2>}}'
+> # Retorna quantidade de elementos de uma chave
+> curl -X GET http://127.0.0.1:5000/zcard/<chave>
+> # Retorna o rank do elemento em uma chave:
+> curl -X get http://127.0.0.1:5000/zrank/<chave></chave> -H "accept: application/json" -H "Content-type: application/json" -d '{"value":"<elemento>"}'
+> # Retorna a seção de uma chave:
+> curl -X get http://127.0.0.1:5000/zrange/valor_1/start/1/end/2
+```
+
 Se houver instalada na sua IDE um simulador de requisições REST pode ser testado também através do arquivo tests/.rest
 
 Cronograma:
